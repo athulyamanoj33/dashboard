@@ -90,7 +90,7 @@ const DataTable: React.FC = () => {
         }}
         scroll={{ x: 'max-content' }}
         rowKey="key"
-        onChange={handleChange} // This will handle sorting and pagination changes
+        onChange={handleChange} 
       />
     </div>
   );

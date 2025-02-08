@@ -1,5 +1,6 @@
 import { Layout, Menu } from 'antd';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
 const { Sider } = Layout;
 
 const Sidebar = () => {
@@ -13,19 +14,20 @@ const Sidebar = () => {
         bottom: 0,
         height: '100vh',
         zIndex: 1,
-        overflow: 'hidden',
+        overflow: 'auto', // Changed to auto to allow scroll if necessary
       }}
-      collapsible
+      collapsible // Allows the sidebar to collapse
+      theme="dark"
     >
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1">
-          <Link to="/">Overview</Link> 
+          <Link to="/">Overview</Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to="/performance">Performance</Link> 
+          <Link to="/performance">Performance</Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Link to="/sales">Sales</Link> 
+          <Link to="/sales">Sales</Link>
         </Menu.Item>
       </Menu>
     </Sider>
