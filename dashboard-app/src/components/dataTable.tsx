@@ -6,46 +6,63 @@ import { fetchMockData } from '../utils/mockData';
 
 const DataTable: React.FC = () => {
   const dispatch = useDispatch();
-  
-  // Access Redux state
   const { data, filters, pagination } = useSelector((state: any) => state.dashboard);
 
-  // Local state for search input
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    // Fetch data and set it in Redux store
     const fetchedData = fetchMockData();
     dispatch(setData(fetchedData));
   }, [dispatch]);
 
-  // Handle category filter
   const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilters({ category: e.target.value }));
   };
 
-  // Handle search by name
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
 
-  // Handle pagination
   const handlePageChange = (page: number, pageSize: number) => {
     dispatch(setPagination({ currentPage: page, pageSize }));
   };
 
-  // Apply filters
-  const filteredData = data.filter((item) => {
-    const matchesCategory = filters.category ? item.category.toString().includes(filters.category) : true;
-    const matchesSearch = searchText ? item.name.toLowerCase().includes(searchText.toLowerCase()) : true;
-    return matchesCategory && matchesSearch;
-  });
+  const handleChange = (pagination: any, filters: any, sorter: any) => {
+    
+  };
+
+  const filteredData = data
+    .filter((item) => {
+      const matchesCategory = filters.category ? item.category.toString().includes(filters.category) : true;
+      const matchesSearch = searchText ? item.name.toLowerCase().includes(searchText.toLowerCase()) : true;
+      return matchesCategory && matchesSearch;
+    });
 
   const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Value', dataIndex: 'value', key: 'value' },
-    { title: 'Category', dataIndex: 'category', key: 'category' },
-    { title: 'Date', dataIndex: 'date', key: 'date' },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name),
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+      sorter: (a: any, b: any) => a.value - b.value,
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+      sorter: (a: any, b: any) => a.category.localeCompare(b.category),
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      sorter: (a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    },
   ];
 
   return (
@@ -71,8 +88,9 @@ const DataTable: React.FC = () => {
           total: filteredData.length,
           onChange: handlePageChange,
         }}
-        scroll={{ x: 'max-content' }} 
+        scroll={{ x: 'max-content' }}
         rowKey="key"
+        onChange={handleChange} // This will handle sorting and pagination changes
       />
     </div>
   );

@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Initial state
+
 const initialState = {
   data: [],  
   filters: {
-    dateRange: { start: '', end: '' }, // Filter by date range
-    category: '',  // Filter by category
+    dateRange: { start: '', end: '' }, 
+    category: '', 
   },
   preferences: {
-    theme: 'light',  // Default theme
+    theme: 'light', 
   },
   pagination: {
     currentPage: 1,
     pageSize: 5,
   },
-  lineChartData: [], // Store data for the line chart
-  barChartData: [],  // Store data for the bar chart
+  lineChartData: [], 
+  barChartData: [],  
 };
 
-// Create the slice
+
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,

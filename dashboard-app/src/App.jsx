@@ -1,20 +1,11 @@
-import {
-  Layout,
-  Row,
-  Col,
-  Card,
-  Input,
-  DatePicker,
-  Avatar,
-  Typography,
-} from "antd"; 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
+import { Layout, Row, Col, Card, DatePicker, Avatar, Typography } from "antd";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import DataTable from "./components/dataTable";
 import LineChart from "./components/linechart";
 import BarChart from "./components/barchart";
-import { SearchOutlined } from "@ant-design/icons";
 import Dashboard from "./components/dashboard";
+
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
@@ -45,16 +36,10 @@ const App = () => {
             </Title>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Input
-              prefix={<SearchOutlined />}
-              placeholder="Search"
-              style={{ width: 200, marginRight: "16px", maxWidth: "100%" }}
-            />
             <DatePicker
               style={{ marginRight: "16px", maxWidth: "100%" }}
               placeholder="Select Date"
             />
-
             <Avatar size="large" src="https://www.example.com/avatar.png" />
           </div>
         </Header>
@@ -107,4 +92,5 @@ const App = () => {
     </Router>
   );
 };
+
 export default App;
