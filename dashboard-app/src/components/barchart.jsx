@@ -7,22 +7,19 @@ import { fetchMockBarChartData } from "../utils/mockData";
 const BarChart = () => {
   const dispatch = useDispatch();
   const barChartData = useSelector((state) => state.dashboard.barChartData);
-  
-  // State to handle screen width for responsive layout
+
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const fetchedData = fetchMockBarChartData();
     dispatch(setBarChartData(fetchedData));
 
-    // Event listener for window resizing
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener on component unmount
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
 
@@ -56,7 +53,6 @@ const BarChart = () => {
     responsive: true,
   };
 
-  // Dynamically adjust the styles based on the screen size
   const chartStyles = {
     container: {
       width: "100%",
@@ -73,7 +69,6 @@ const BarChart = () => {
     },
   };
 
-  // Optional: Adjust layout settings or margin based on screen size (for better fit on small screens)
   if (screenWidth <= 600) {
     layout.margin = {
       l: 30,
@@ -85,11 +80,7 @@ const BarChart = () => {
 
   return (
     <div style={chartStyles.container}>
-      <Plot
-        data={data}
-        layout={layout}
-        style={chartStyles.plot}
-      />
+      <Plot data={data} layout={layout} style={chartStyles.plot} />
     </div>
   );
 };

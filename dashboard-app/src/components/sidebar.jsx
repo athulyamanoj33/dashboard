@@ -1,5 +1,5 @@
 import { Layout, Menu } from 'antd';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 
 const { Sider } = Layout;
 
@@ -14,7 +14,7 @@ const Sidebar = () => {
         bottom: 0,
         height: '100vh',
         zIndex: 1,
-        overflow: 'auto', // If you want scrolling within the sidebar, keep this
+        overflow: 'auto', 
       }}
       theme="dark"
     >
