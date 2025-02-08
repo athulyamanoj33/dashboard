@@ -14,9 +14,8 @@ const Sidebar = () => {
         bottom: 0,
         height: '100vh',
         zIndex: 1,
-        overflow: 'auto', // Changed to auto to allow scroll if necessary
+        overflow: 'auto', // If you want scrolling within the sidebar, keep this
       }}
-      collapsible // Allows the sidebar to collapse
       theme="dark"
     >
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
