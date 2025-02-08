@@ -11,9 +11,6 @@ export const fetchMockData = () => {
     ];
   };
   
-
-
-
 export const fetchMockLineChartData = () => {
     return [
       { date: '2021-01-01', value: 20, category: 'Category 1' },
