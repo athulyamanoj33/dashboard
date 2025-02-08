@@ -1,15 +1,16 @@
 
 export const fetchMockData = () => {
     return [
-      { key: '1', name: 'John Doe', value: 123 },
-      { key: '2', name: 'Jane Smith', value: 456 },
-      { key: '3', name: 'Bob Johnson', value: 789 },
-      { key: '4', name: 'Alice Brown', value: 101 },
-      { key: '5', name: 'Charlie White', value: 202 },
-      { key: '6', name: 'David Green', value: 303 },
-      { key: '7', name: 'Eva Black', value: 404 },
+      { key: '1', name: 'John Doe', value: 123, category: 'A', date: '2025-01-15' },
+      { key: '2', name: 'Jane Smith', value: 456, category: 'B', date: '2025-01-16' },
+      { key: '3', name: 'Bob Johnson', value: 789, category: 'A', date: '2025-01-17' },
+      { key: '4', name: 'Alice Brown', value: 101, category: 'C', date: '2025-01-18' },
+      { key: '5', name: 'Charlie White', value: 202, category: 'B', date: '2025-01-19' },
+      { key: '6', name: 'David Green', value: 303, category: 'A', date: '2025-02-01' },
+      { key: '7', name: 'Eva Black', value: 404, category: 'C', date: '2025-02-02' },
     ];
   };
+  
 
 
 

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Table, Input, Button, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Table, Input, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData, setFilters, setPagination } from '../features/dashboard/dashboardSlice';
 import { fetchMockData } from '../utils/mockData';
@@ -7,57 +7,68 @@ import { fetchMockData } from '../utils/mockData';
 const DataTable: React.FC = () => {
   const dispatch = useDispatch();
   
-  // Access data, filters, and pagination from Redux state
+  // Access Redux state
   const { data, filters, pagination } = useSelector((state: any) => state.dashboard);
 
+  // Local state for search input
+  const [searchText, setSearchText] = useState('');
+
   useEffect(() => {
-    // Simulate fetching data and set it to Redux state
+    // Fetch data and set it in Redux store
     const fetchedData = fetchMockData();
     dispatch(setData(fetchedData));
   }, [dispatch]);
 
-  const handleDateRangeChange = (value: { start: string; end: string }) => {
-    dispatch(setFilters({ dateRange: value }));
-  };
-
+  // Handle category filter
   const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilters({ category: e.target.value }));
   };
 
+  // Handle search by name
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  // Handle pagination
   const handlePageChange = (page: number, pageSize: number) => {
     dispatch(setPagination({ currentPage: page, pageSize }));
   };
 
-  // Slice data for pagination
-  const paginatedData = data.slice(
-    (pagination.currentPage - 1) * pagination.pageSize,
-    pagination.currentPage * pagination.pageSize
-  );
+  // Apply filters
+  const filteredData = data.filter((item) => {
+    const matchesCategory = filters.category ? item.category.toString().includes(filters.category) : true;
+    const matchesSearch = searchText ? item.name.toLowerCase().includes(searchText.toLowerCase()) : true;
+    return matchesCategory && matchesSearch;
+  });
 
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'Value', dataIndex: 'value', key: 'value' },
+    { title: 'Category', dataIndex: 'category', key: 'category' },
+    { title: 'Date', dataIndex: 'date', key: 'date' },
   ];
 
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
         <Input
+          placeholder="Search by name"
+          value={searchText}
+          onChange={handleSearchChange}
+        />
+        <Input
           placeholder="Filter by category"
-          value={filters.category}  // Bind filter input to Redux state
+          value={filters.category}
           onChange={handleCategoryChange}
         />
-        <Button onClick={() => handleDateRangeChange({ start: '2025-01-01', end: '2025-02-01' })}>
-          Set Date Range
-        </Button>
       </Space>
       <Table
-        dataSource={paginatedData}
+        dataSource={filteredData}
         columns={columns}
         pagination={{
           current: pagination.currentPage,
           pageSize: pagination.pageSize,
-          total: data.length,
+          total: filteredData.length,
           onChange: handlePageChange,
         }}
         scroll={{ x: 'max-content' }} 
